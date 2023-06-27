@@ -1,0 +1,76 @@
+@baseUrl = http://localhost:3002/api/users
+@contentType = application/json
+
+@auth = {{login.response.body.$.token}}
+
+### 👉 User Login
+
+# @name login
+@adminuserid = {{login.response.body.id}}
+POST {{baseUrl}}/login
+Content-Type: {{contentType}}
+
+{
+  "email": "wcj@admin.com",
+  "password": "1234"
+}
+
+
+### 👉 Get User List
+
+# @name list
+GET {{baseUrl}}/?token={{auth}}
+Content-Type: application/json
+
+### 👉 User Verify
+
+GET {{baseUrl}}/verify
+Content-Type: application/json
+
+
+### 👉 Get User Info
+
+GET {{baseUrl}}/1
+Authorization: token {{auth}}
+Content-Type: application/json
+
+### 👉 Logout
+
+POST {{baseUrl}}/logout
+Content-Type: application/json
+
+### 👉 Create User
+
+POST {{baseUrl}}/?token={{auth}}
+Content-Type: application/json
+
+{
+  "email": "wcj{{$randomInt 1 1200}}@admin.com",
+  "password": "1234",
+  "name": "张三1"
+}
+
+### 👉 Search User
+
+POST {{baseUrl}}/search?token={{auth}}
+Content-Type: application/json
+
+{
+  "email": "wcj@admin.com"
+}
+
+### 👉 Signup User
+
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+  "email": "wcj{{$randomInt 1 1200}}@admin.com",
+  "password": "1234",
+  "name": "张三"
+}
+
+### 👉 Delete User
+
+DELETE {{baseUrl}}/22?token={{auth}}
+Content-Type: application/json

@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npm run build && node dist/main.js",
+    "dev": "nodemon --inspect dist/main.js",
+    "watch": "tsbb watch",
+    "build": "tsbb build",
+    "test": "tsbb test",
+    "coverage": "tsbb test --coverage --bail"
+  },
+  "author": "kenny wong <wowohoo@qq.com>",
+  "license": "MIT",
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/?!(.*)"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "lib",
+      "test/*",
+      "node_modules/*"
+    ],
+    "delay": "2500"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "typenexus": "^0.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "tsbb": "^4.1.14"
+  }
+}
