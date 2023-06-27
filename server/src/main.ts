@@ -16,7 +16,7 @@ declare module 'express-session' {
   }
 }
 
-;(async () => {
+(async () => {
   const app = new TypeNexus(3002, config);
   await app.connect();
   await app.dataSource.synchronize();
