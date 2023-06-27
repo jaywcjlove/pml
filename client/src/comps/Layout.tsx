@@ -14,8 +14,8 @@ const SiderBar = styled.aside`
   background-color: var(--color-neutral-muted);
   backdrop-filter: saturate(180%) blur(0.4rem);
   position: sticky;
-  width: 210px;
-  min-width: 210px;
+  width: 32px;
+  min-width: 32px;
   height: 100vh;
   top: 0;
 `;

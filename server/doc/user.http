@@ -15,7 +15,6 @@ Content-Type: {{contentType}}
   "password": "1234"
 }
 
-
 ### 👉 Get User List
 
 # @name list

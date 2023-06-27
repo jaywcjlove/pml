@@ -1,0 +1,64 @@
+@baseUrl = http://localhost:3002/api
+@contentType = application/json
+
+@auth = {{login.response.body.$.token}}
+
+### 👉 User Login
+
+# @name login
+@adminuserid = {{login.response.body.id}}
+POST {{baseUrl}}/users/login
+Content-Type: {{contentType}}
+
+{
+  "email": "wcj@admin.com",
+  "password": "1234"
+}
+
+### 👉 Get Category
+
+GET {{baseUrl}}/category?token={{auth}}
+Content-Type: application/json
+
+### 👉 Get One Category
+
+GET {{baseUrl}}/category/41
+Content-Type: {{contentType}}
+Authorization: token {{auth}}
+
+### 👉 Create Category
+
+POST {{baseUrl}}/category
+Content-Type: {{contentType}}
+Authorization: token {{auth}}
+
+{
+  "name": "银行{{$randomInt 1 1200}}"
+}
+
+### ---- 👉 Create Child Category 2
+
+POST {{baseUrl}}/category/42
+Content-Type: {{contentType}}
+Authorization: token {{auth}}
+
+{
+  "name": "帐号{{$randomInt 1 1200}}"
+}
+
+### 👉 Delete Category
+
+DELETE {{baseUrl}}/category/42
+Content-Type: {{contentType}}
+Authorization: token {{auth}}
+
+
+### 👉 Put Category
+
+PUT {{baseUrl}}/category/41
+Content-Type: {{contentType}}
+Authorization: token {{auth}}
+
+{
+  "name": "帐号{{$randomInt 1 1200}}"
+}

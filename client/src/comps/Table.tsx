@@ -6,7 +6,6 @@ export const Table = styled.table<{ maxWidth?: string }>`
   border-spacing: 0;
   border-collapse: collapse;
   border-radius: 0.25rem;
-  background-color: var(--color-neutral-muted);
   min-width: ${({ maxWidth }) => maxWidth || `100%`};
   tbody td,
   thead th {
@@ -24,12 +23,8 @@ export const Table = styled.table<{ maxWidth?: string }>`
     border-radius: 0 !important;
     line-height: 16px;
   }
-  thead {
-    background-color: var(--color-neutral-muted);
-  }
   thead th {
     text-align: left;
-    background-color: var(--color-neutral-muted);
   }
 
   thead tr:first-child th:first-child {

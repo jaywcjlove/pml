@@ -3,6 +3,8 @@ import crypto from 'crypto';
 import { config, adminAccount } from './config.js';
 import { User } from './entity/user.entity.js';
 import { UserController } from './entity/user.controller.js';
+import { CategoryController } from './entity/category.controller.js';
+import { PasswordsController } from './entity/passwords.controller.js';
 
 import 'express-session';
 
@@ -53,7 +55,7 @@ declare module 'express-session' {
     return false;
   };
 
-  app.controllers([UserController]);
+  app.controllers([UserController, CategoryController, PasswordsController]);
   app.express.disable('x-powered-by');
   await app.start();
 })();

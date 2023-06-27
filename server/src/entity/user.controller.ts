@@ -25,7 +25,7 @@ interface UserResult {
   token?: string;
 }
 
-const secretKey = 'secret-jobs-2023';
+const secretKey = 'secret-pml-2023';
 
 @Controller('/users')
 export class UserController {
