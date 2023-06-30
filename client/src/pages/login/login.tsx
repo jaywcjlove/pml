@@ -48,7 +48,7 @@ export function Component() {
         });
       setTimeout(() => {
         // 跳转到上一个页面或者 `/`
-        const from = location.state?.from?.pathname || '/spaces/space';
+        const from = location.state?.from?.pathname || '/passwords';
         navigate(from, { replace: true });
       });
     }

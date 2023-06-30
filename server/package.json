@@ -27,7 +27,7 @@
     "delay": "2500"
   },
   "dependencies": {
-    "crypto": "^1.0.1",
+    "local-ip-url": "^1.0.6",
     "typenexus": "^0.4.1"
   },
   "devDependencies": {

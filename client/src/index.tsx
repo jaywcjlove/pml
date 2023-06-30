@@ -81,7 +81,7 @@ const toastOptions: DefaultToastOptions = {
 root.render(
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <dark-mode permanent style={{ zIndex: 999, right: 10, top: 10, position: 'fixed' }}></dark-mode>
+      <dark-mode permanent style={{ zIndex: 999, right: 14, top: 14, fontSize: 21, position: 'fixed' }}></dark-mode>
       <GlobalStyle />
       <RouterProvider router={createHashRouter(routes as RouteObject[])} fallbackElement={<Fallback />} />
       <Toaster position="top-right" toastOptions={toastOptions} />

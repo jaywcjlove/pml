@@ -1,7 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, DeleteDateColumn, CreateDateColumn } from 'typenexus';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  DeleteDateColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typenexus';
 // import { BeforeInsert, BeforeUpdate, AfterUpdate } from 'typenexus';
-import { User } from './user.entity.js';
 // import { encrypt } from '../utils/password.js';
+import { User } from './user.entity.js';
 
 @Entity()
 export class Passwords {
@@ -35,6 +43,9 @@ export class Passwords {
 
   @CreateDateColumn({ comment: '创建时间' })
   createAt: Date;
+
+  @UpdateDateColumn({ comment: '更新时间' })
+  updateAt: Date;
 
   // @BeforeInsert()
   // @BeforeUpdate()

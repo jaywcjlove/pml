@@ -1,7 +1,16 @@
+import crypto from 'crypto';
 import { Controller, DSource, DataSource } from 'typenexus';
 import { Get, Post, Delete, Put } from 'typenexus';
 import { Param, Body, BodyParam } from 'typenexus';
-import { UseBefore, NotFoundError, Authorized, SessionParam, Repository, FindOptionsSelect } from 'typenexus';
+import {
+  UseBefore,
+  NotFoundError,
+  NotAcceptableError,
+  Authorized,
+  SessionParam,
+  Repository,
+  FindOptionsSelect,
+} from 'typenexus';
 import { User } from './user.entity.js';
 import { PaginationMiddleware, PaginationAwareObject } from '../middleware/Pagination.js';
 import { Passwords } from './passwords.entity.js';
@@ -9,9 +18,11 @@ import { decrypt, encrypt } from '../utils/password.js';
 
 const selectOptions: FindOptionsSelect<Passwords> = {
   id: true,
+  title: true,
   username: true,
   password: true,
   notes: true,
+  url: true,
   creator: {
     id: true,
     isAdmin: true,
@@ -19,6 +30,7 @@ const selectOptions: FindOptionsSelect<Passwords> = {
     name: true,
   },
   deleteAt: true,
+  updateAt: true,
   createAt: true,
 };
 
@@ -60,8 +72,14 @@ export class PasswordsController {
         creator: true,
       },
     });
-    console.log('result::123:', result);
-    return { password: decrypt(result.password) };
+    if (result.password) {
+      const [raw, key, iv] = result.password.split('.');
+      if (!raw || !iv || !key) {
+        throw new NotAcceptableError(`密码 ${passwordId} 数据源错误！`);
+      }
+      return { password: decrypt(result.password) };
+    }
+    throw new NotFoundError(`密码 ${passwordId} 不存在！`);
   }
 
   @Authorized()
@@ -134,7 +152,7 @@ export class PasswordsController {
     @Body() body: Passwords,
   ): Promise<{ message: string }> {
     if (body.password) {
-      body.password = encrypt(body.password);
+      body.password = body.password ? encrypt(body.password) : body.password;
     }
     const result = await this.reps.update(
       { id: passwordId, creator: { id: userInfo.id } },

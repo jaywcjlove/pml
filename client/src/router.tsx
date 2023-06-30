@@ -17,7 +17,26 @@ export const routes: MenuRouteObject[] = [
     children: [
       {
         index: true,
+        element: <Navigate to="/passwords" />,
+      },
+      {
+        path: 'passwords',
+        label: 'Home',
         lazy: () => import('./pages/home'),
+        children: [
+          {
+            path: ':id/remove',
+            lazy: () => import('./pages/home/remove'),
+          },
+          {
+            path: ':id/edit',
+            lazy: () => import('./pages/home/edit'),
+          },
+        ],
+      },
+      {
+        path: 'add/passwords',
+        lazy: () => import('./pages/home/add'),
       },
     ],
   },

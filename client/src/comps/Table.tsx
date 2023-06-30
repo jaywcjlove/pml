@@ -2,6 +2,11 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+export const TablePlaceholder = styled.td`
+  text-align: center;
+`;
+
+export const TrEmpty = styled.tr``;
 export const Table = styled.table<{ maxWidth?: string }>`
   border-spacing: 0;
   border-collapse: collapse;
@@ -10,14 +15,13 @@ export const Table = styled.table<{ maxWidth?: string }>`
   tbody td,
   thead th {
     line-height: 21px;
-    padding: 0.5rem;
+    padding: 0.2rem 0.5rem;
   }
   caption {
     padding: 0.5rem;
     line-height: 21px;
     border-radius: 0.25rem 0.25rem 0 0;
     text-align: left;
-    background-color: var(--color-neutral-muted);
   }
   caption + thead tr th {
     border-radius: 0 !important;
@@ -36,7 +40,6 @@ export const Table = styled.table<{ maxWidth?: string }>`
   }
 
   tfoot tr td {
-    background-color: var(--color-neutral-muted);
     padding: 0.5rem;
   }
   tfoot tr:last-child td {
@@ -53,7 +56,7 @@ export const Table = styled.table<{ maxWidth?: string }>`
   tbody:has(+ tfoot) tr td {
     border-radius: 0 !important;
   }
-  tbody tr:hover {
+  tbody tr:hover:not(${TrEmpty}) {
     background-color: var(--color-neutral-muted);
   }
 `;

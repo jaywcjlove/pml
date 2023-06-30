@@ -93,6 +93,7 @@ export const ModelLayout = forwardRef<ModelLayoutRef, ModelLayoutProps>((props, 
   const navigate = useNavigate();
   const { state } = useLocation();
   const referrer = state?.referrer || props.pathname;
+  console.log('referrer:', referrer);
   const [scope, animate] = useAnimate();
 
   useEffect(() => {

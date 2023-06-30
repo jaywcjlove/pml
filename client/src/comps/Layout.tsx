@@ -2,22 +2,20 @@ import { Outlet, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { RequireAuth } from '../store';
 import { routes } from '../router';
+import logo from 'src/asset/logo.png';
 
 const Wrapper = styled.div`
   width: 100%;
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const SiderBar = styled.aside`
-  background-color: var(--color-neutral-muted);
-  backdrop-filter: saturate(180%) blur(0.4rem);
-  position: sticky;
-  width: 32px;
-  min-width: 32px;
-  height: 100vh;
-  top: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 34px 5px 0;
+  border-bottom: 1px solid rgba(var(--color-initial) / 0.13);
 `;
 
 const Content = styled.main`
@@ -27,16 +25,16 @@ const Content = styled.main`
 
 const Menus = styled.aside`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: 5px;
-  padding-left: 6px;
-  padding-right: 5px;
-  padding-top: 5px;
+  padding: 5px;
+  padding-inline: 10px;
   a {
     display: block;
     color: var(--color-theme-text);
-    padding: 5px 8px;
-    margin-right: 10px;
+    padding: 3px 8px;
+    margin: 5px 0;
     transition: all 0.3s;
     border-radius: 3px;
     position: relative;
@@ -54,29 +52,14 @@ const Menus = styled.aside`
     &::after {
       transition: all 0.3s;
       background-color: transparent;
-      content: '';
-      display: block;
-      position: absolute;
-      right: -10px;
-      top: 0;
-      width: 5px;
-      height: 100%;
-      border-radius: 3px;
-    }
-    &.active::after,
-    &:hover::after {
-      transition: all 0.3s;
-      background-color: var(--primary-color);
-      content: '';
-      display: block;
-      position: absolute;
-      right: -10px;
-      top: 0;
-      width: 5px;
-      height: 100%;
-      border-radius: 3px;
     }
   }
+`;
+
+const Logo = styled.img`
+  width: 28px;
+  height: 28px;
+  margin-right: 5px;
 `;
 
 export const SpacesLayout = () => {
@@ -85,6 +68,7 @@ export const SpacesLayout = () => {
     <Wrapper>
       <SiderBar>
         <Menus>
+          <Logo src={logo} />
           {menus?.children &&
             menus?.children.map((m, idx) => {
               if (!m.label) return null;
@@ -94,6 +78,9 @@ export const SpacesLayout = () => {
                 </NavLink>
               );
             })}
+        </Menus>
+        <Menus>
+          <NavLink to="/add/passwords">New Item</NavLink>
         </Menus>
       </SiderBar>
       <Content>

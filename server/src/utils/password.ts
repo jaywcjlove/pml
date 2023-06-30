@@ -1,18 +1,24 @@
 import crypto from 'crypto';
 
-const ENC = 'bf3b2470cb9c07b1e0c1917c179477d9';
-const IV = '526ec981636ec7e4';
 const ALGO = 'aes-256-cbc';
 
-export const encrypt = (text: string, key: number = 1) => {
-  let cipher = crypto.createCipheriv(ALGO, ENC, IV);
-  let encrypted = cipher.update(text, 'utf8', 'base64');
+/** 加密 */
+export const encrypt = (plaintext: string) => {
+  const key = crypto.randomBytes(32);
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(ALGO, key, iv);
+  let encrypted = cipher.update(plaintext, 'utf8', 'base64');
   encrypted += cipher.final('base64');
-  return encrypted;
+  return encrypted + '.' + key.toString('base64') + '.' + iv.toString('base64');
 };
 
-export const decrypt = (text: string, key: number = 1) => {
-  let decipher = crypto.createDecipheriv(ALGO, ENC, IV);
+/** 解密 */
+export const decrypt = (encrypted: string = '') => {
+  const [text, keyS, ivS] = encrypted.split('.');
+  const keyStr = Buffer.from(keyS, 'base64');
+  const ivStr = Buffer.from(ivS, 'base64');
+  const decipher = crypto.createDecipheriv(ALGO, keyStr, ivStr);
   let decrypted = decipher.update(text, 'base64', 'utf8');
-  return decrypted + decipher.final('utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
 };
