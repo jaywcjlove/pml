@@ -1,10 +1,8 @@
-import { Fragment } from 'react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Form, useLoaderData, useLocation } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { getPassword, updatePassword } from 'src/services/password';
 import { FormStyle } from 'src/comps/FormStyle';
-import { ModelLayout, ModelLayoutRef } from 'src/comps/Model';
+import { Model } from 'src/comps/Model';
 import { GeneratePassword } from 'src/comps/fields/Password';
 import { Button } from 'src/comps/Button';
 
@@ -13,14 +11,13 @@ export const action = updatePassword;
 export function Component() {
   const location = useLocation();
   const data = useLoaderData() as any;
-  const $model = useRef<ModelLayoutRef>(null);
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     if (!confirm(`确认更新密码？`)) {
       e.preventDefault();
     }
   };
   return (
-    <ModelLayout ref={$model} header="Edit Password" pathname={`/passwords${location.search}`}>
+    <Model header="Edit Password" width={340} pathname={`/passwords${location.search}`}>
       <Form method="post" action={`/passwords/${data.id}/edit${location.search}`} onSubmit={submit}>
         <FormStyle style={{ padding: 12 }}>
           <label>
@@ -48,7 +45,7 @@ export function Component() {
           </footer>
         </FormStyle>
       </Form>
-    </ModelLayout>
+    </Model>
   );
 }
 

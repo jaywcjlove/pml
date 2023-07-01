@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import { RouterProvider, createHashRouter, RouteObject } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Toaster, DefaultToastOptions } from 'react-hot-toast';
+import { AnimatePresence } from 'framer-motion';
 import '@wcj/dark-mode';
 import { Fallback } from './comps/Fallback';
 import { routes } from './router';
@@ -81,9 +82,11 @@ const toastOptions: DefaultToastOptions = {
 root.render(
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <dark-mode permanent style={{ zIndex: 999, right: 14, top: 14, fontSize: 21, position: 'fixed' }}></dark-mode>
+      <dark-mode permanent style={{ zIndex: 999, right: 14, top: 11, fontSize: 19, position: 'fixed' }}></dark-mode>
       <GlobalStyle />
-      <RouterProvider router={createHashRouter(routes as RouteObject[])} fallbackElement={<Fallback />} />
+      <AnimatePresence>
+        <RouterProvider router={createHashRouter(routes as RouteObject[])} fallbackElement={<Fallback />} />
+      </AnimatePresence>
       <Toaster position="top-right" toastOptions={toastOptions} />
     </AuthProvider>
   </QueryClientProvider>,

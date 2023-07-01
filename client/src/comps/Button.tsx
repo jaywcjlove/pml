@@ -55,3 +55,13 @@ export const Button = styled.button<ButtonProps>`
     `}
   ${buttonStyles}
 `;
+
+export const TrashButton = styled.button`
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: var(--danger-color, #dc3545);
+  cursor: pointer;
+  display: flex;
+`;

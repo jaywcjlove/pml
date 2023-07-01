@@ -1,5 +1,5 @@
 import { ActionFunction, LoaderFunction, redirect, useLocation } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { fetchFn } from 'src/utils/react-query';
 
 const getUrl = () => {

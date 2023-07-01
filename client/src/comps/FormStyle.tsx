@@ -15,6 +15,7 @@ export const FormStyle = styled.div<FormStyleProps>`
   label select,
   label input[type='text'],
   label input[type='email'],
+  label input[type='url'],
   label input[type='datetime-local'],
   label input[type='password'],
   label textarea {
@@ -42,6 +43,7 @@ export const FormStyle = styled.div<FormStyleProps>`
   > label > section,
   > section {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
   }
   > section * {

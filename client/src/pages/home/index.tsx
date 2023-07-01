@@ -1,24 +1,27 @@
 import { Link, Outlet, Form, useLoaderData, useLocation } from 'react-router-dom';
 import formatter from '@uiw/formatter';
-import { Table, TFoot, Td, TrEmpty, TablePlaceholder, Pagination } from 'src/comps/Table';
+import styled from 'styled-components';
+import { Table, TFoot, TrEmpty, TablePlaceholder, Pagination } from 'src/comps/Table';
 import { getPasswordList } from 'src/services/password';
 import { decrypt } from 'src/utils/password';
+import { TrashButton } from 'src/comps/Button';
+import { PasswrodVisible, CopyText } from 'src/comps/fields/Password';
+import { ReactComponent as LinkIcon } from 'src/comps/icons/link.svg';
+import { ReactComponent as EditIcon } from 'src/comps/icons/edit.svg';
+import { ReactComponent as TrashIcon } from 'src/comps/icons/trash.svg';
 
-function truncateText(text: string = '', maxLength: number = 30) {
-  if (text.length > maxLength) {
-    return text.substring(0, maxLength) + '...';
+export const Anchor = styled.a`
+  display: flex;
+`;
+
+const ToolBar = styled.div`
+  display: flex;
+  gap: 0.65rem;
+  & > * {
+    display: inline-flex;
+    align-items: center;
   }
-  return text;
-}
-
-export const Anchor = (props: { url: string }) => {
-  const { url = '' } = props;
-  return (
-    <a target="_blank" href={url} title={url}>
-      {truncateText(url || '')}
-    </a>
-  );
-};
+`;
 
 export const loader = getPasswordList;
 
@@ -30,7 +33,6 @@ export function Component() {
       <Table maxWidth="auto">
         <thead>
           <tr>
-            <th>#</th>
             <th>Title</th>
             <th>Username</th>
             <th>Password</th>
@@ -50,34 +52,43 @@ export function Component() {
             data.data.map((item: any, index: number) => {
               return (
                 <tr key={`${index}-${item.id}`}>
-                  <td>{item.id}</td>
-                  <td>{item.title || '-'}</td>
-                  <td>{item.username}</td>
                   <td>
-                    {item.password
-                      ? decrypt(
-                          '2adBN2EEXkjeQ32Hrpn6gQ==.WpQBfJ02JmDuKRNthDKiR8E6QvqklI8NrduecvOnD8A=.Db9T0p/HoiX2zIwhaFC04g==',
-                        )
-                      : ''}
+                    <Link to={`/passwords/${item.id}`}>{item.title || ''}</Link>
                   </td>
                   <td>
-                    <Anchor url={item.url} />
+                    <CopyText text={item.username}>{item.username}</CopyText>
+                  </td>
+                  <td>
+                    <PasswrodVisible value={item.password ? decrypt(item.password) : ''} />
+                  </td>
+                  <td>
+                    {item.url && (
+                      <Anchor target="_blank" href={item.url} title={item.url}>
+                        <LinkIcon width={18} height={18} />
+                      </Anchor>
+                    )}
                   </td>
                   <td>{item.updateAt && formatter('YYYY年MM月DD日 HH:mm:ss', new Date(item.updateAt))}</td>
-                  <Td>
-                    <Link to={`/passwords/${item.id}/edit${location.search}`}>编辑</Link>
-                    <Form
-                      method="post"
-                      action={`/passwords/${item.id}/remove`}
-                      onSubmit={(event) => {
-                        if (!confirm(`请确认您要 ${item.id} 删除此记录。`)) {
-                          event.preventDefault();
-                        }
-                      }}
-                    >
-                      <button type="submit">Delete</button>
-                    </Form>
-                  </Td>
+                  <td>
+                    <ToolBar>
+                      <Link to={`/passwords/${item.id}/edit${location.search}`}>
+                        <EditIcon width={18} height={18} />
+                      </Link>
+                      <Form
+                        method="post"
+                        action={`/passwords/${item.id}/remove`}
+                        onSubmit={(event) => {
+                          if (!confirm(`请确认您要 ${item.id} 删除此记录。`)) {
+                            event.preventDefault();
+                          }
+                        }}
+                      >
+                        <TrashButton type="submit">
+                          <TrashIcon width={18} height={18} />
+                        </TrashButton>
+                      </Form>
+                    </ToolBar>
+                  </td>
                 </tr>
               );
             })}

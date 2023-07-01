@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { RequireAuth } from '../store';
 import { routes } from '../router';
 import logo from 'src/asset/logo.png';
+import { ReactComponent as AddIcon } from './icons/add.svg';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -31,14 +32,16 @@ const Menus = styled.aside`
   padding: 5px;
   padding-inline: 10px;
   a {
-    display: block;
+    display: inline-flex;
     color: var(--color-theme-text);
-    padding: 3px 8px;
-    margin: 5px 0;
     transition: all 0.3s;
     border-radius: 3px;
     position: relative;
     text-decoration: none;
+    &:not(.icon) {
+      padding: 3px 8px;
+      margin: 5px 0;
+    }
     &:hover,
     &.active {
       background-color: var(--color-neutral-muted);
@@ -80,7 +83,9 @@ export const SpacesLayout = () => {
             })}
         </Menus>
         <Menus>
-          <NavLink to="/add/passwords">New Item</NavLink>
+          <NavLink to="/add/passwords" className="icon">
+            <AddIcon width={21} height={21} />
+          </NavLink>
         </Menus>
       </SiderBar>
       <Content>

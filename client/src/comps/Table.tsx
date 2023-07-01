@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const TablePlaceholder = styled.td`
   text-align: center;
@@ -15,7 +15,7 @@ export const Table = styled.table<{ maxWidth?: string }>`
   tbody td,
   thead th {
     line-height: 21px;
-    padding: 0.2rem 0.5rem;
+    padding: 0.4rem 0.5rem;
   }
   caption {
     padding: 0.5rem;
@@ -61,10 +61,6 @@ export const Table = styled.table<{ maxWidth?: string }>`
   }
 `;
 
-export const Td = styled.td`
-  display: flex;
-  gap: 0.65rem;
-`;
 const FooterWarpper = styled.tfoot``;
 
 export const TFoot: FC<React.HTMLAttributes<HTMLElement>> = ({ ...props }) => {

@@ -25,6 +25,10 @@ export const routes: MenuRouteObject[] = [
         lazy: () => import('./pages/home'),
         children: [
           {
+            path: ':id',
+            lazy: () => import('./pages/home/preview'),
+          },
+          {
             path: ':id/remove',
             lazy: () => import('./pages/home/remove'),
           },
