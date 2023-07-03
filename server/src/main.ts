@@ -1,4 +1,5 @@
 import { TypeNexus, Action } from 'typenexus';
+import express from 'express';
 import crypto from 'crypto';
 import { config, adminAccount } from './config.js';
 import { User } from './entity/user.entity.js';
@@ -20,6 +21,7 @@ declare module 'express-session' {
 
 (async () => {
   const app = new TypeNexus(3002, config);
+  app.express.use(express.static('public'));
   await app.connect();
   await app.dataSource.synchronize();
   // Check if an administrator account has been created.
