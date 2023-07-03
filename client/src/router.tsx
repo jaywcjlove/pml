@@ -42,6 +42,10 @@ export const routes: MenuRouteObject[] = [
         path: 'add/passwords',
         lazy: () => import('./pages/home/add'),
       },
+      {
+        path: 'import/passwords',
+        lazy: () => import('./pages/home/import'),
+      },
     ],
   },
   {

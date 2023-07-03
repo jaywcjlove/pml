@@ -1,9 +1,10 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { RequireAuth } from '../store';
 import { routes } from '../router';
 import logo from 'src/asset/logo.png';
 import { ReactComponent as AddIcon } from './icons/add.svg';
+import { ReactComponent as ImportIcon } from './icons/import.svg';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,13 +25,20 @@ const Content = styled.main`
   padding: 1rem;
 `;
 
-const Menus = styled.aside`
+const Menus = styled.aside<{ $isTools?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
   padding: 5px;
   padding-inline: 10px;
+  ${({ $isTools }) =>
+    $isTools &&
+    css`
+      & {
+        gap: 12px;
+      }
+    `}
   a {
     display: inline-flex;
     color: var(--color-theme-text);
@@ -38,10 +46,14 @@ const Menus = styled.aside`
     border-radius: 3px;
     position: relative;
     text-decoration: none;
-    &:not(.icon) {
-      padding: 3px 8px;
-      margin: 5px 0;
-    }
+    ${({ $isTools }) =>
+      !$isTools &&
+      css`
+        & {
+          padding: 3px 8px;
+          margin: 5px 0;
+        }
+      `}
     &:hover,
     &.active {
       background-color: var(--color-neutral-muted);
@@ -82,9 +94,12 @@ export const SpacesLayout = () => {
               );
             })}
         </Menus>
-        <Menus>
+        <Menus $isTools={true}>
           <NavLink to="/add/passwords" className="icon">
             <AddIcon width={21} height={21} />
+          </NavLink>
+          <NavLink to="/import/passwords" className="icon">
+            <ImportIcon width={21} height={21} />
           </NavLink>
         </Menus>
       </SiderBar>

@@ -44,6 +44,11 @@ export const GeneratePassword = (props: React.InputHTMLAttributes<HTMLInputEleme
   );
 };
 
+export const PasswordText = styled.span`
+  flex: 1;
+  margin-top: 3px;
+`;
+
 export const PasswrodVisible = ({ value = '' }: { value: string }) => {
   const [visible, setVisible] = useState(false);
   const click = (evn: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
@@ -54,17 +59,21 @@ export const PasswrodVisible = ({ value = '' }: { value: string }) => {
     <CopyText text={value}>
       {visible && <EyeIcon width={26} height={26} onClick={click} />}
       {!visible && <EyeCloseIcon width={26} height={26} onClick={click} />}
-      {visible ? value : Array.from({ length: value.length }, () => '*').join('')}
+      <PasswordText>{visible ? value : Array.from({ length: value.length }, () => '*').join('')}</PasswordText>
     </CopyText>
   );
 };
 
 const Text = styled.span`
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
   font-family: monospace;
   vertical-align: middle;
+  word-break: break-all;
+  line-height: 12px;
+  max-width: 640px;
+  position: relative;
 `;
 
 export const CopyText: FC<PropsWithChildren<{ text: string }>> = ({ text = '', children, ...reset }) => {

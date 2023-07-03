@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import * as Papa from 'papaparse';
 import { Controller, DSource, DataSource } from 'typenexus';
 import { Get, Post, Delete, Put } from 'typenexus';
 import { Param, Body, BodyParam } from 'typenexus';
@@ -10,6 +10,7 @@ import {
   SessionParam,
   Repository,
   FindOptionsSelect,
+  InsertResult,
 } from 'typenexus';
 import { User } from './user.entity.js';
 import { PaginationMiddleware, PaginationAwareObject } from '../middleware/Pagination.js';
@@ -36,11 +37,10 @@ const selectOptions: FindOptionsSelect<Passwords> = {
 
 @Controller('/passwords')
 export class PasswordsController {
-  private reps: Repository<Passwords>;
-  constructor(@DSource() private dataSource: DataSource) {
+  public reps: Repository<Passwords>;
+  constructor(@DSource() public dataSource: DataSource) {
     this.reps = this.dataSource.getRepository(Passwords);
   }
-
   @Authorized()
   @Get()
   @UseBefore(PaginationMiddleware)
@@ -162,5 +162,38 @@ export class PasswordsController {
       throw new NotFoundError(`密码 ${passwordId} 更新失败！`);
     }
     return { message: '密码更新成功！' };
+  }
+
+  @Authorized()
+  @Post('/import/csv/text')
+  public async importCSVText(
+    @BodyParam('data') data: string,
+    @SessionParam('userInfo') userInfo: User,
+  ): Promise<{ message: string } | InsertResult['raw']> {
+    try {
+      const user = await this.dataSource.getRepository(User).findOne({
+        where: { id: userInfo.id },
+      });
+      const result = Papa.default.parse(data, {
+        skipEmptyLines: true,
+      });
+      if (result.data.length === 0) {
+        throw new NotFoundError(`CSV 数据为空！`);
+      }
+      const values = result.data.map(([title, username, password, url, notes]) => {
+        return {
+          title,
+          username,
+          password: password ? encrypt(password) : password,
+          url,
+          notes,
+          creator: user,
+        };
+      });
+      const resultValues = await this.dataSource.createQueryBuilder().insert().into(Passwords).values(values).execute();
+      return resultValues.raw;
+    } catch (error) {
+      throw new NotAcceptableError(`导入 CSV 数据错误： ${error.message}`);
+    }
   }
 }
