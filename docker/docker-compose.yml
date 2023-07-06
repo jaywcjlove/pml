@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    # ports:
+    #   - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=wcjiang
+    restart: always
+
+  pml:
+    image: pml:latest
+    ports:
+      - 3560:3002
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=wcjiang
+      - POSTGRES_DB=pml
+    depends_on:
+      - postgres
