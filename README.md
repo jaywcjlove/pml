@@ -1,3 +1,5 @@
+<img align="right" height="150" src="./client/public/favicon.png">
+
 `P`assword `M`anager `L`ite
 ===
 
