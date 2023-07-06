@@ -1,4 +1,4 @@
-<img align="right" height="150" src="./client/public/favicon.png">
+<img align="left" height="120" src="./client/public/favicon.png">
 
 `P`assword `M`anager `L`ite
 ===
@@ -8,7 +8,7 @@
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/wcjiang/pml)](https://hub.docker.com/r/wcjiang/pml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wcjiang/pml)](https://hub.docker.com/r/wcjiang/pml)
 
-Password Manager Lite.
+Password Manager Lite. A simple password management web application.
 
 ## Docker
 
@@ -44,3 +44,7 @@ docker-compose -p pml-server -f docker-compose.yml down --remove-orphans --rmi l
 # Or
 docker stack deploy -c docker-compose.yml pml-server
 ```
+
+## License
+
+Licensed under the MIT License.
