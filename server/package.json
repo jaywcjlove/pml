@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "papaparse": "^5.4.1",
-    "typenexus": "^0.4.1"
+    "typenexus": "^0.5.0"
   },
   "devDependencies": {
     "@types/papaparse": "^5.3.7",
