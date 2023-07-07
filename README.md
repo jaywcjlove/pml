@@ -28,6 +28,7 @@ services:
     ports:
       - 3560:3002
     environment:
+      - DB_LOGGING=false
       - POSTGRES_HOST=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=wcjiang

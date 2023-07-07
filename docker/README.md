@@ -29,6 +29,7 @@ Start the **pml** container
 ```bash
 $ docker run --name pml \
   -p 3560:3002 \
+  -e DB_LOGGING=false \
   -e POSTGRES_HOST=192.168.31.179 \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=wcjiang \
@@ -54,6 +55,7 @@ services:
     ports:
       - 3560:3002
     environment:
+      - DB_LOGGING=false
       - POSTGRES_HOST=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=wcjiang

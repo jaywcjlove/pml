@@ -87,7 +87,7 @@ export const updatePassword: ActionFunction = async ({ request, params }): Promi
 };
 
 export const importPasswordCSV: ActionFunction = async ({ request, params }): Promise<any> => {
-  let toastId = toast.loading('正在批量导入密码中...');
+  const toastId = toast.loading('正在批量导入密码中...');
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   const result = await fetchFn(`/api/passwords/import/csv/text`, {
@@ -105,5 +105,27 @@ export const importPasswordCSV: ActionFunction = async ({ request, params }): Pr
   }
   const resultData = await result.json();
   toast.success(`批量导入 ${resultData.length} 密码成功!`, { id: toastId });
+  return redirect(`/passwords${getUrl()}`);
+};
+
+export const importPasswordXML: ActionFunction = async ({ request, params }): Promise<any> => {
+  const toastId = toast.loading('正在批量导入密码中...');
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const result = await fetchFn(`/api/passwords/import/json`, {
+    ...request,
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  if (result.status === 401) {
+    toast.error('请重新登录!', { id: toastId });
+    return redirect('/login');
+  }
+  if (result.status !== 200) {
+    toast.error('批量导入密码失败!', { id: toastId });
+    return { statusCode: result.status, message: '批量导入密码失败!' };
+  }
+  const resultData = await result.json();
+  toast.success(`批量导入 ${resultData.length} 密码成功!`, { id: toastId, duration: 5000 });
   return redirect(`/passwords${getUrl()}`);
 };

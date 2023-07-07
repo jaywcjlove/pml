@@ -56,7 +56,7 @@ export class PasswordsController {
       })
       .where(`creator.id = :userId`, { userId: userInfo.id })
       .addOrderBy('passwords.createAt', 'DESC')
-      .paginate();
+      .paginate(100);
   }
 
   @Authorized()
@@ -194,6 +194,44 @@ export class PasswordsController {
       return resultValues.raw;
     } catch (error) {
       throw new NotAcceptableError(`导入 CSV 数据错误： ${error.message}`);
+    }
+  }
+
+  @Authorized()
+  @Post('/import/json')
+  public async importMacpassXML(
+    @BodyParam('data') data: string,
+    @SessionParam('userInfo') userInfo: User,
+  ): Promise<{ message: string } | InsertResult['raw']> {
+    try {
+      const user = await this.dataSource.getRepository(User).findOne({
+        where: { id: userInfo.id },
+      });
+      const result = JSON.parse(data) as Array<{
+        title?: string;
+        username?: string;
+        password?: string;
+        url?: string;
+        notes?: string;
+      }>;
+      if (result.length === 0) {
+        throw new NotFoundError(`XML 数据为空！`);
+      }
+      const values = result.map((item) => {
+        const { title, username, password, url, notes } = item || {};
+        return {
+          title,
+          username,
+          password: password ? encrypt(password.toString()) : password,
+          url,
+          notes,
+          creator: user,
+        };
+      });
+      const resultValues = await this.dataSource.createQueryBuilder().insert().into(Passwords).values(values).execute();
+      return resultValues.raw;
+    } catch (error) {
+      throw new NotAcceptableError(`导入 XML 数据错误： ${error.message}`);
     }
   }
 }

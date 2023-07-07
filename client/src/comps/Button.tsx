@@ -6,7 +6,9 @@ export const buttonStyles = css`
   padding: 5px 10px;
   --tt-btn-background-color: rgba(var(--color-initial) / 0.155);
   background-color: var(--tt-btn-background-color);
-  box-shadow: inset 0 0 0 1px rgba(var(--color-initial) / 0.2), 0 1px 2px rgba(var(--color-initial) / 0.1);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--color-initial) / 0.2),
+    0 1px 2px rgba(var(--color-initial) / 0.1);
   --tt-btn-color: rgba(var(--color-initial) / 0.9);
   color: var(--tt-btn-color);
   transition: all 0.6s;
@@ -25,6 +27,9 @@ export const buttonStyles = css`
   &:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(var(--color-initial) / 0.35);
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 
@@ -64,4 +69,18 @@ export const TrashButton = styled.button`
   color: var(--danger-color, #dc3545);
   cursor: pointer;
   display: flex;
+`;
+
+export const XMLInput = styled.label`
+  position: relative;
+  cursor: pointer;
+  ${buttonStyles}
+  > input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
 `;

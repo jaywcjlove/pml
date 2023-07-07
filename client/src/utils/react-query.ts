@@ -15,6 +15,10 @@ export const queryClient = new QueryClient({
   },
 });
 
+interface FetchFnOptions extends RequestInit {
+  contentTypeJSONDisable?: boolean;
+}
+
 /**
  * Fetch API 请求
  * ## 返回状态
@@ -34,11 +38,13 @@ export const queryClient = new QueryClient({
  * 504: '网关超时'
  * @param url string  请求 API
  */
-export const fetchFn = (url: string, { ...fetchOption }: RequestInit = {}) => {
+export const fetchFn = (url: string, { contentTypeJSONDisable = true, ...fetchOption }: FetchFnOptions = {}) => {
   fetchOption.headers = new Headers({
     ...fetchOption.headers,
-    'Content-Type': 'application/json',
   });
+  if (contentTypeJSONDisable) {
+    fetchOption.headers.set('Content-Type', 'application/json');
+  }
   const token = getToken();
   if (token) {
     fetchOption.headers.set('Authorization', `token ${token}`);

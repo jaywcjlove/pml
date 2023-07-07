@@ -98,7 +98,7 @@ export const SpacesLayout = () => {
           <NavLink to="/add/passwords" className="icon">
             <AddIcon width={21} height={21} />
           </NavLink>
-          <NavLink to="/import/passwords" className="icon">
+          <NavLink to="/import/passwords/csv" className="icon">
             <ImportIcon width={21} height={21} />
           </NavLink>
         </Menus>

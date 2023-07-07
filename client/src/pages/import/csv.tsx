@@ -1,16 +1,22 @@
+import { useState } from 'react';
 import { Form } from 'react-router-dom';
+import CSVReader from '@uiw/react-csv-reader';
+import styled from 'styled-components';
 import { FormStyle } from 'src/comps/FormStyle';
 import { Button } from 'src/comps/Button';
-import { GeneratePassword } from 'src/comps/fields/Password';
 import { importPasswordCSV } from 'src/services/password';
-import styled from 'styled-components';
 
 const placeholder = `title,username,password,url,notes\ntitle,username,password,url\ntitle,,password\ntitle,,password,url\ntitle,,,url`;
 
-export const Textarea = styled.textarea``;
+export const Textarea = styled.textarea`
+  min-height: 270px;
+  width: 100%;
+  max-width: 100%;
+`;
 
 export const action = importPasswordCSV;
 export function Component() {
+  const [value, setValue] = useState('');
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     if (!confirm(`确认添加密码？`)) {
       event.preventDefault();
@@ -23,9 +29,20 @@ export function Component() {
           <h3>CSV Text Import</h3>
           <Textarea
             required
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             name="data"
-            style={{ minHeight: 270, width: '100%', maxWidth: '100%' }}
             placeholder={placeholder}
+          />
+        </label>
+        <label htmlFor="csv_uploads">
+          <h3>Read CSV file</h3>
+          <CSVReader
+            name="csv_uploads"
+            id="csv_uploads"
+            onFileLoaded={(data, iFileInfo, iOriginalFile, text) => {
+              text && setValue(text);
+            }}
           />
         </label>
         <footer>

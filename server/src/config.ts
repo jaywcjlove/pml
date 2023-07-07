@@ -13,7 +13,7 @@ export const config: TypeNexusOptions = {
     password: process.env.POSTGRES_PASSWORD || 'wcjiang',
     database: process.env.POSTGRES_DB || 'pml',
     synchronize: true,
-    logging: true,
+    logging: process.env.DB_LOGGING === 'false' ? false : true,
     entities: ['dist/entity/*.js'],
     // entities: [User],
   },
