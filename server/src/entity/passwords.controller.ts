@@ -1,7 +1,7 @@
 import * as Papa from 'papaparse';
 import { Controller, DSource, DataSource } from 'typenexus';
 import { Get, Post, Delete, Put } from 'typenexus';
-import { Param, Body, BodyParam } from 'typenexus';
+import { Param, Body, QueryParam, BodyParam, Like } from 'typenexus';
 import {
   UseBefore,
   NotFoundError,
@@ -80,6 +80,25 @@ export class PasswordsController {
       return { password: decrypt(result.password) };
     }
     throw new NotFoundError(`密码 ${passwordId} 不存在！`);
+  }
+
+  @Authorized()
+  @Get('/search')
+  public async search(
+    @QueryParam('q') query: string = '',
+    @SessionParam('userInfo') userInfo: User,
+  ): Promise<Passwords[]> {
+    const result = await this.reps.find({
+      where: {
+        title: Like(`%${query}%`),
+        creator: { id: userInfo.id },
+      },
+      select: selectOptions,
+      relations: {
+        creator: true,
+      },
+    });
+    return result;
   }
 
   @Authorized()
