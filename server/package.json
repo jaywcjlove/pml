@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/papaparse": "^5.3.7",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.1",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
     "tsbb": "^4.1.14"

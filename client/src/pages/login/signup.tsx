@@ -1,15 +1,10 @@
-import Login from '@react-login-page/page3';
-import defaultBannerImage from '@react-login-page/page3/bg.jpeg';
-import styled from 'styled-components';
+import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useFetcher, useLocation, useNavigate, NavLink } from 'react-router-dom';
 import { useAuth } from '../../store';
 import { signup } from '../../services/login';
-import { useEffect, useRef } from 'react';
-
-const LoginPage = styled(Login)`
-  height: 100vh !important;
-`;
+import logoSrc from '../../asset/logo.png';
+import { LogoImage, LoginPage } from './login';
 
 export const action = signup;
 export function Component() {
@@ -54,18 +49,17 @@ export function Component() {
   return (
     <fetcher.Form method="post" onSubmit={submitHanle}>
       <LoginPage>
-        <Login.Banner style={{ backgroundImage: `url(${defaultBannerImage})` }} />
-        <Login.Title> Task Tracker </Login.Title>
-        <Login.Logo visible={false} />
-        <Login.Welcome>Welcome! Signup to your account.</Login.Welcome>
-        <Login.Submit>注册</Login.Submit>
-        <Login.Password label="密码" placeholder="请输入你的密码" />
-        <Login.Password label="确认密码" keyname="confirmPassword" placeholder="确认你的密码" />
-        <Login.Email label="邮箱" placeholder="请输入你的邮箱" />
-        <Login.Email label="姓名" type="text" keyname="name" placeholder="请输入你的姓名" index={-1} />
-        <Login.ButtonAfter>
-          <NavLink to="/login">现在登录</NavLink>
-        </Login.ButtonAfter>
+        <LoginPage.Title> Sign Up </LoginPage.Title>
+        <LoginPage.Logo>
+          <LogoImage src={logoSrc} />
+        </LoginPage.Logo>
+        <LoginPage.Password keyname="confirmPassword" placeholder="Confirm Password" />
+        <LoginPage.Username name="email" placeholder="Email address" />
+        <LoginPage.Username keyname="name" placeholder="Please enter your name" />
+        <LoginPage.Reset></LoginPage.Reset>
+        <LoginPage.Footer>
+          <NavLink to="/login">Login now</NavLink>
+        </LoginPage.Footer>
       </LoginPage>
     </fetcher.Form>
   );
