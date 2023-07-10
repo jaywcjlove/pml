@@ -1,7 +1,7 @@
 import React, { useState, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimationDefinition } from 'framer-motion';
 import { CloseButton, Header, CloseWrapper, Wrapper } from './Drawer';
 
 const Inner = styled(motion.div)<{ width?: number }>`
@@ -9,7 +9,10 @@ const Inner = styled(motion.div)<{ width?: number }>`
   width: ${({ width }) => `${width ? width : 230}px`};
   border-radius: 0.375rem;
   background-color: rgba(var(--color-init) / 0.95);
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(16, 22, 26, 0.1),
+    0 4px 8px rgba(16, 22, 26, 0.2),
+    0 18px 46px 6px rgba(16, 22, 26, 0.2);
 `;
 
 interface ModelProps {
@@ -35,7 +38,7 @@ export const Model: React.FC<PropsWithChildren<ModelProps>> = (props) => {
         closed: { opacity: 0 },
       }}
       transition={{ duration: 0.5 }}
-      onAnimationComplete={(definition) => {
+      onAnimationComplete={(definition: AnimationDefinition) => {
         if (definition === 'closed') {
           navigate(referrer);
         }
@@ -46,7 +49,7 @@ export const Model: React.FC<PropsWithChildren<ModelProps>> = (props) => {
         <CloseButton size={21} />
       </CloseWrapper>
       <Inner
-        onClick={(evn) => evn.stopPropagation()}
+        onClick={(evn: React.MouseEvent<HTMLDivElement, MouseEvent>) => evn.stopPropagation()}
         initial={{ scale: 0.8 }}
         width={width}
         variants={{

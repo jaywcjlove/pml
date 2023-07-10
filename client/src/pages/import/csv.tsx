@@ -30,7 +30,7 @@ export function Component() {
           <Textarea
             required
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setValue(e.target.value)}
             name="data"
             placeholder={placeholder}
           />

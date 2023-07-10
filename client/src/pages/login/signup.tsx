@@ -1,3 +1,4 @@
+import Login from '@react-login-page/base';
 import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useFetcher, useLocation, useNavigate, NavLink } from 'react-router-dom';
@@ -49,17 +50,17 @@ export function Component() {
   return (
     <fetcher.Form method="post" onSubmit={submitHanle}>
       <LoginPage>
-        <LoginPage.Title> Sign Up </LoginPage.Title>
-        <LoginPage.Logo>
+        <Login.Title> Sign Up </Login.Title>
+        <Login.Logo>
           <LogoImage src={logoSrc} />
-        </LoginPage.Logo>
-        <LoginPage.Password keyname="confirmPassword" placeholder="Confirm Password" />
-        <LoginPage.Username name="email" placeholder="Email address" />
-        <LoginPage.Username keyname="name" placeholder="Please enter your name" />
-        <LoginPage.Reset></LoginPage.Reset>
-        <LoginPage.Footer>
+        </Login.Logo>
+        <Login.Password keyname="confirmPassword" placeholder="Confirm Password" />
+        <Login.Username name="email" placeholder="Email address" />
+        <Login.Username keyname="name" placeholder="Please enter your name" />
+        <Login.Reset></Login.Reset>
+        <Login.Footer>
           <NavLink to="/login">Login now</NavLink>
-        </LoginPage.Footer>
+        </Login.Footer>
       </LoginPage>
     </fetcher.Form>
   );

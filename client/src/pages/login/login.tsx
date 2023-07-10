@@ -51,14 +51,14 @@ export function Component() {
   return (
     <Form method="post">
       <LoginPage>
-        <LoginPage.Title> PML Login </LoginPage.Title>
-        <LoginPage.Logo>
+        <Login.Title> PML Login </Login.Title>
+        <Login.Logo>
           <LogoImage src={logoSrc} />
-        </LoginPage.Logo>
-        <LoginPage.Username placeholder="Email address" name="email" />
-        <LoginPage.Footer>
+        </Login.Logo>
+        <Login.Username placeholder="Email address" name="email" />
+        <Login.Footer>
           New to PML? <NavLink to="/signup">Create an account</NavLink>.
-        </LoginPage.Footer>
+        </Login.Footer>
       </LoginPage>
     </Form>
   );

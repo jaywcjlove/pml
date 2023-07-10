@@ -1,7 +1,7 @@
 import React, { useState, PropsWithChildren } from 'react';
 import styled, { css } from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimationDefinition } from 'framer-motion';
 
 export const CloseButton = styled.div<{ fixed?: boolean; size?: number }>`
   width: 21px;
@@ -58,7 +58,7 @@ export const CloseWrapper = styled.div`
   display: flex;
 `;
 
-export const Wrapper = styled(motion.div)`
+export const Wrapper = styled(motion.div)<{ inset?: number }>`
   position: fixed;
   background-color: rgba(var(--color-initial-op) / 0.75);
   inset: 0px;
@@ -79,7 +79,10 @@ const Inner = styled(motion.div)<{ width?: number }>`
   border-radius: 0.375rem;
   transform: translateX(100%) translateZ(0px);
   background-color: rgba(var(--color-init) / 0.95);
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(16, 22, 26, 0.1),
+    0 4px 8px rgba(16, 22, 26, 0.2),
+    0 18px 46px 6px rgba(16, 22, 26, 0.2);
 `;
 
 const Content = styled.article`
@@ -112,7 +115,7 @@ export const Drawer: React.FC<PropsWithChildren<DrawerProps>> = (props) => {
         closed: { opacity: 0 },
       }}
       transition={{ duration: 0.5 }}
-      onAnimationComplete={(definition) => {
+      onAnimationComplete={(definition: AnimationDefinition) => {
         if (definition === 'closed') {
           navigate(referrer);
         }
@@ -123,7 +126,7 @@ export const Drawer: React.FC<PropsWithChildren<DrawerProps>> = (props) => {
         <CloseButton size={21} />
       </CloseWrapper>
       <Inner
-        onClick={(evn) => evn.stopPropagation()}
+        onClick={(evn: React.MouseEvent<HTMLDivElement, MouseEvent>) => evn.stopPropagation()}
         initial={{ x: '100%' }}
         variants={{
           open: { x: '0%' },
