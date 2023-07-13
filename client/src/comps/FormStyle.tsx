@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface FormStyleProps {
-  inlineBlock?: boolean;
+  $inlineBlock?: boolean;
 }
 
 export const FormStyle = styled.div<FormStyleProps>`
@@ -20,7 +20,7 @@ export const FormStyle = styled.div<FormStyleProps>`
   label input[type='password'],
   label textarea {
     ${(props) =>
-      !props.inlineBlock &&
+      !props.$inlineBlock &&
       css`
         width: 100%;
         max-width: 100%;

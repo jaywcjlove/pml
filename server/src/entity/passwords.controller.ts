@@ -41,10 +41,16 @@ export class PasswordsController {
   constructor(@DSource() public dataSource: DataSource) {
     this.reps = this.dataSource.getRepository(Passwords);
   }
+
   @Authorized()
   @Get()
   @UseBefore(PaginationMiddleware)
-  public async all(@SessionParam('userInfo') userInfo: User): Promise<PaginationAwareObject<Passwords>> {
+  public async all(
+    @SessionParam('userInfo') userInfo: User,
+    @QueryParam('order') order: 'ASC' | 'DESC' = 'DESC',
+  ): Promise<PaginationAwareObject<Passwords>> {
+    const orderList = ['ASC', 'DESC'];
+    const orderNmae = order.toUpperCase() as 'ASC' | 'DESC';
     return this.reps
       .createQueryBuilder('passwords')
       .leftJoinAndSelect('passwords.creator', 'creator')
@@ -55,7 +61,7 @@ export class PasswordsController {
         },
       })
       .where(`creator.id = :userId`, { userId: userInfo.id })
-      .addOrderBy('passwords.createAt', 'DESC')
+      .addOrderBy('passwords.createAt', orderList.includes(orderNmae) ? orderNmae : 'DESC')
       .paginate(100);
   }
 

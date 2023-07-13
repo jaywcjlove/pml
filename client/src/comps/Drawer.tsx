@@ -58,7 +58,7 @@ export const CloseWrapper = styled.div`
   display: flex;
 `;
 
-export const Wrapper = styled(motion.div)<{ inset?: number }>`
+export const Wrapper = styled(motion.div)<{ $inset?: number }>`
   position: fixed;
   background-color: rgba(var(--color-initial-op) / 0.75);
   inset: 0px;

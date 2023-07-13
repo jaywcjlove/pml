@@ -13,7 +13,7 @@ export function Component() {
   };
   return (
     <Form method="post" action="/add/passwords" onSubmit={submit}>
-      <FormStyle inlineBlock style={{ padding: 0 }}>
+      <FormStyle $inlineBlock style={{ padding: 0 }}>
         <label>
           <h3>Title</h3>
           <input required type="text" name="title" placeholder="Title" />

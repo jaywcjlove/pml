@@ -24,9 +24,9 @@ export function Component() {
   };
   return (
     <Form method="post" onSubmit={submit}>
-      <FormStyle inlineBlock style={{ padding: 0 }}>
+      <FormStyle $inlineBlock style={{ padding: 0 }}>
+        <div>CSV password text or ".csv" password file import.</div>
         <label>
-          <h3>CSV Text Import</h3>
           <Textarea
             required
             value={value}

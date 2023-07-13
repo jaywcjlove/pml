@@ -20,6 +20,12 @@ const Header = styled.header`
   }
 `;
 
+const Content = styled.div`
+  background-color: rgba(var(--color-initial) / 0.102);
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+`;
+
 export function Component() {
   return (
     <Wrapper>
@@ -27,7 +33,9 @@ export function Component() {
         <NavLink to="/import/passwords/csv">CSV</NavLink>
         <NavLink to="/import/passwords/macpass">MacPass</NavLink>
       </Header>
-      <Outlet />
+      <Content>
+        <Outlet />
+      </Content>
     </Wrapper>
   );
 }

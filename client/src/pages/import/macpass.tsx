@@ -100,6 +100,7 @@ export function Component() {
   return (
     <Form method="post" onSubmit={submit} encType="multipart/form-data">
       <FormStyle style={{ padding: 0, display: 'inline-flex' }}>
+        <div>MacPass password file `.xml` file batch import</div>
         <input type="hidden" name="data" value={JSON.stringify(value)} />
         <XMLInput htmlFor="fileName">
           <span>Read XML file {file ? `: ${file.name}` : '...'}</span>

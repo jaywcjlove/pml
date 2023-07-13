@@ -30,7 +30,7 @@ export function Component() {
   const data = useLoaderData() as any;
   return (
     <div>
-      <Table maxWidth="auto">
+      <Table $maxWidth="auto">
         <thead>
           <tr>
             <th>Title</th>

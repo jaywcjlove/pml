@@ -7,11 +7,11 @@ export const TablePlaceholder = styled.td`
 `;
 
 export const TrEmpty = styled.tr``;
-export const Table = styled.table<{ maxWidth?: string }>`
+export const Table = styled.table<{ $maxWidth?: string }>`
   border-spacing: 0;
   border-collapse: collapse;
   border-radius: 0.25rem;
-  min-width: ${({ maxWidth }) => maxWidth || `100%`};
+  min-width: ${({ $maxWidth }) => $maxWidth || `100%`};
   tbody td,
   thead th {
     line-height: 21px;
