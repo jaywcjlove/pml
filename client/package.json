@@ -8,7 +8,7 @@
     "start": "kkt start"
   },
   "dependencies": {
-    "@react-login-page/base": "^0.4.16",
+    "@react-login-page/base": "^1.0.0",
     "@tanstack/react-query": "^4.24.10",
     "@types/crypto-js": "^4.1.1",
     "@uiw/copy-to-clipboard": "^1.0.12",
