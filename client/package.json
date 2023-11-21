@@ -15,7 +15,7 @@
     "@uiw/formatter": "^2.0.1",
     "@uiw/react-csv-reader": "^1.0.2",
     "@uiw/react-json-view": "^1.6.0",
-    "@uiw/react-markdown-preview": "^4.1.13",
+    "@uiw/react-markdown-preview": "^5.0.0",
     "@uiw/react-xml-reader": "^1.0.1",
     "@wcj/dark-mode": "^1.0.15",
     "@wcj/generate-password": "^1.0.3",
