@@ -20,7 +20,7 @@
     "@wcj/dark-mode": "^1.0.15",
     "@wcj/generate-password": "^1.0.3",
     "crypto-js": "^4.1.1",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
